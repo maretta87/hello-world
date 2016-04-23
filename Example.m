@@ -58,6 +58,10 @@ try
     response = KbName(keyCode);
     RT = round((RTime - initTime) * 1000);    % Response Time in ms
     
-catch
-    
+% Try-Catch will be useful when you are testing your code
+% Matlab will run the code in the Try section first and if it encounters an error,
+% rather than just stopping it will run whatever code is in the Catch section
+catch error % When it hits an error it will store it in a variable, here I've called it error
+    sca % Close all PTB windows
+    rethrow(error) % This will display the error (Note: it won't run any code after the rethrow function)
 end
