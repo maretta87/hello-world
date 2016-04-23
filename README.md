@@ -1,9 +1,7 @@
 # hello-world
 sca;
 close all;
-% I am sorry, Dan, this programme is as useful as confusing! I haven't really understood how to make changes to the existing files, so I am afraid 
-% we will have to work on new files everytime until next time we meet! -.-
-% here some changes and I hope I have done the homework 3, again I couldn't display..don't understand why!
+
 
 
 % DB - Remember to comment on your code, just so when you return to it you
@@ -32,8 +30,8 @@ try
     
     dotColor = [white]; % Set the color
     
-    dotXpos =  screenXpixels * 0.5; % values obtained with the script below
-    dotYpos = yCenter; % value obrained with the  script below
+    dotXpos =  screenXpixels * 0.5; % in eprime the fixation was at center X position
+    dotYpos = screenXpixels * 0.48; % I worte this number, because in eprime the fixation was at the 48% on y position 
     % DB - You've got the idea here, but not implimented it correctly. Take
     % a look at the values produced for dotXpos & dotYpos and think about
     % where they are on a screen
@@ -52,3 +50,48 @@ try
 catch
     
 end
+
+% Homework 4 I had a go at this homework as well)
+% write text lines for the instructions
+close all;
+clearvars;
+sca
+
+
+PsychDefaultSetup(2);
+screens = Screen('Screens');
+screenNumber = max(screens);
+black = BlackIndex(screenNumber);
+white = WhiteIndex(screenNumber);
+[window, windowRect] = PsychImaging('OpenWindow', screenNumber, grey);
+Screen('BlendFunction', window, 'GL_SRC_ALPHA', 'GL_ONE_MINUS_SRC_ALPHA');
+[screenXpixels, screenYpixels] = Screen('WindowSize', window);
+[xCenter, yCenter] = RectCenter(windowRect);
+
+% lines of text
+line1 = 'The task is composed by two subtasks: ';
+line2 = '\n In the first, you have to judge whether the orientation degrees of two pattern is same "S" or different "D"';
+line3 = '\n\n In the second, the same pattern will be shortly presented again, followed by just one of the stimuli ';
+line4 = '\n\n\n which you have to judge as same "S" or different "D" compared to its corresponding';
+line5 = '\n\n\n\n IMPORTANT: Keep your eyes fixating the white circle between the stimuli and you fingers on the "S" and "D" keys!'
+
+% Draw all the text in one go
+Screen('TextSize', window, 70);
+DrawFormattedText(window, [line1 line2 line3 line4 line5],...
+    'center', screenYpixels * 0.25, white);
+
+DrawFormattedText(window, pref, 'center', 'center');
+
+% Flip to the screen
+Screen('Flip', window);
+
+% check for keyboard press
+        [keyIsDown,secs,keyCode] = KbCheck;
+        % if spacebar was pressed stop display
+        if keyCode(stopkey)
+            break;
+        end
+        
+% Clear the screen
+sca;
+
